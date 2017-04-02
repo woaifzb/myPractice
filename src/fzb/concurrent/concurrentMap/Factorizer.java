@@ -22,6 +22,8 @@ public class Factorizer {
 	};
 
 	private final Computable<BigInteger,BigInteger[]> cache=new Memoizer<BigInteger, BigInteger[]>(c);
+	
+	
 	protected BigInteger[] factor(BigInteger arg) {
 		List<BigInteger> factors=new ArrayList<BigInteger>();
 		BigInteger  divisor=new BigInteger("2");
@@ -53,6 +55,7 @@ private static void print(BigInteger[] compute,BigInteger arg) {
 	for(int i=0;i<compute.length;i++){
 		System.out.print(compute[i]+" ");
 	}
+	System.out.println();
 }
 
 

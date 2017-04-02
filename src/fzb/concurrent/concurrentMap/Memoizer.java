@@ -29,11 +29,12 @@ public class Memoizer<A,V> implements Computable<A, V>{
 				Callable<V> eval=new  Callable<V>(){
 					@Override
 					public V call() throws InterruptedException {
+						System.out.println("开始计算公因数");
 						return c.compute(arg);
 					}
 				};
 				FutureTask<V> ft=new FutureTask<V>(eval);
-				System.out.println("读取缓存");
+				System.out.println("从缓存获取"+arg+"的公因数");
 				f=cache.putIfAbsent(arg, ft);
 				if(f==null){
 					System.out.println("缓存为空");
@@ -49,7 +50,15 @@ public class Memoizer<A,V> implements Computable<A, V>{
 					cache.remove(arg,f);
 				}
 			}
-			
+			else{
+				System.out.println("从缓存取得"+arg+"的公因数");
+				try {
+					return f.get();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
