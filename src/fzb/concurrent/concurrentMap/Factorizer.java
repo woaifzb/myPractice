@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
 
 /**
  * java并发编程实战 P86 -89
@@ -40,10 +41,11 @@ public class Factorizer {
 
 public static void main(String[] args) {
 	Factorizer f=new Factorizer();
+	Random r=new Random();
 	try {
-		BigInteger[] factors={BigInteger.valueOf(99),BigInteger.valueOf(18),BigInteger.valueOf(102),BigInteger.valueOf(99)};
-		for(int i=0;i<factors.length;i++){
-			print(f.cache.compute(factors[i]),factors[i]);
+		for(int i=0;i<100;i++){
+			int temp=r.nextInt(1000);
+			print(f.cache.compute(BigInteger.valueOf(temp)),BigInteger.valueOf(temp));
 		}
 	} catch (InterruptedException e) {
 		// TODO Auto-generated catch block

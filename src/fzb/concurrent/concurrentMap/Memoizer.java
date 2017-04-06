@@ -51,7 +51,7 @@ public class Memoizer<A,V> implements Computable<A, V>{
 				}
 			}
 			else{
-				System.out.println("从缓存取得"+arg+"的公因数");
+				System.out.println("从缓存取得"+arg+"的公因数!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 				try {
 					return f.get();
 				} catch (ExecutionException e) {
