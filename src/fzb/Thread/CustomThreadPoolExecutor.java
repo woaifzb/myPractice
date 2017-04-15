@@ -9,7 +9,11 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-
+/**
+ * 自定义线程池
+ * @author fzb
+ * @since  2017年4月7日 下午12:06:46
+ */
 public class CustomThreadPoolExecutor {  
   
       
