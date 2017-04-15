@@ -4,9 +4,16 @@
  */
 package fzb.spring;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -15,13 +22,41 @@ import fzb.proxy.*;
 public class BeanFactoryTest {
 	private static Logger logger = Logger.getLogger(BeanFactoryTest.class);
 	public static void main(String[] args) {
-		ResourcePatternResolver resolver=new PathMatchingResourcePatternResolver();
-		Resource res=resolver.getResource("classpath:/beans.xml");
-		BeanFactory bean=new XmlBeanFactory(res);
+	//	ResourcePatternResolver resolver=new PathMatchingResourcePatternResolver();
+	//	Resource resource=resolver.getResource("classpath:/beans.xml");
+	//	BeanFactory bean=new XmlBeanFactory(res);
 
+		ClassPathResource resource = new ClassPathResource("/beans.xml");  
+		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();  
+		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);  
+		reader.loadBeanDefinitions(resource);  
+		
+	//	print(resource);
+			
+		
+		Persion p=(Persion) factory.getBean("persion",Persion.class);
 		System.out.println("Persion init");
-		Persion p=bean.getBean("persion",Persion.class);
 		
 		p.toString();
+	}
+	
+	
+	private static void print(ClassPathResource resource) {
+		ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024]; 
+		InputStream ip;
+		try {
+			ip = resource.getInputStream();
+			int len=-1;
+			while((len=ip.read(buffer))!=-1){
+				outSteam.write(buffer,0,len);
+			}
+			outSteam.close();
+			ip.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(outSteam.toString());
 	}
 }

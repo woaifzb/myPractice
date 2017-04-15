@@ -14,9 +14,24 @@ public class Persion implements IPersion{
 	float height;
 	
 	
+	public void initMethod(){
+		this.name="default";
+		this.age="0";
+		this.score=0;
+		this.height=0f;
+	}
+	
 	public Persion() {
 		super();
 	}
+	
+	public Persion(String name, String age, int score) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.score = score;
+	}
+
 	public Persion (String name,String age,int score,float height){
 		this.name=name;
 		this.age=age;
