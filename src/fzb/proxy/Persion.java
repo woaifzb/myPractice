@@ -5,17 +5,23 @@ package fzb.proxy;
 
 /**
  * @author fzb
- * @since  2017Äê3ÔÂ18ÈÕ ÏÂÎç6:53:04
+ * @since  2017ï¿½ï¿½3ï¿½ï¿½18ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½6:53:04
  */
 public class Persion implements IPersion{
 	String name;
 	String age;
 	int score;
+	float height;
 	
-	public Persion (String name,String age,int score){
+	
+	public Persion() {
+		super();
+	}
+	public Persion (String name,String age,int score,float height){
 		this.name=name;
 		this.age=age;
 		this.score=score;
+		this.height=height;
 	}
 	public String getName() {
 		return name;
@@ -34,6 +40,21 @@ public class Persion implements IPersion{
 	}
 	public void setScore(int score) {
 		this.score = score;
+	}
+	
+	
+	
+	private float getHeight() {
+		return height;
+	}
+	private void setHeight(float height) {
+		this.height = height;
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		System.out.println("name: "+name+" age:"+age+" score:"+score+" height:"+height);
+		return super.toString();
 	}
 	
 	
