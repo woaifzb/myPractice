@@ -2,9 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/fzb/Desktop/spring-framework-3.2.3.RELEASE-dist/spring-framework-3.2.3.RELEASE/libs/spring-core-3.2.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Users/fzb/Desktop/spring-framework-3.2.3.RELEASE-dist/spring-framework-3.2.3.RELEASE/libs/spring-beans-3.2.3.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Users/fzb/Desktop/log4j.jar"/>
-	<classpathentry kind="lib" path="C:/Users/fzb/Desktop/commons-logging.jar"/>
+	<classpathentry kind="lib" path="src/lib/quartz-1.8.6.jar"/>
+	<classpathentry kind="lib" path="src/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="src/lib/slf4j-log4j12-1.6.4.jar"/>
+	<classpathentry kind="lib" path="src/lib/commons-net-3.3.jar"/>
+	<classpathentry kind="lib" path="src/lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="src/lib/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
