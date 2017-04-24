@@ -2,8 +2,11 @@ package fzb.Thread;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -35,11 +38,11 @@ public class CustomThreadPoolExecutor {
      */  
     public void init() {  
         pool = new MyThreadPoolExecutor(  
+                1,  
+                3,  
                 10,  
-                30,  
-                30,  
                 TimeUnit.MINUTES,  
-                new ArrayBlockingQueue<Runnable>(10),  
+                new ArrayBlockingQueue<Runnable>(2),  
                 new CustomThreadFactory(),  
                 new CustomRejectedExecutionHandler());  
     }  
@@ -77,12 +80,13 @@ public class CustomThreadPoolExecutor {
         public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {  
             // 记录异常  
             // 报警处理等  
-          //  System.out.println("error.............");
+            System.out.println("error.............");
         	try {
 				executor.getQueue().put(r);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new RejectedExecutionException();
 			}  
         }  
     }  
@@ -129,27 +133,60 @@ public class CustomThreadPoolExecutor {
 		
     }
     
+     /**
+      * 使用信号量控制线程池中正在执行和等待执行的任务数量
+      */
+     public static class BoundedExecutor{
+    	 private final Executor exec;
+    	 private final Semaphore semaphore;
+    	 public BoundedExecutor(Executor exec,int bound){
+    		 this.exec=exec;
+    		 this.semaphore = new Semaphore(bound);
+    	 }
+    	 
+    	 public void sumbitTask(final Runnable r) throws InterruptedException{
+    		 semaphore.acquire();
+    		 try {
+				exec.execute(new Runnable(){
+					@Override
+					public void run() {
+						try {
+							r.run();
+						} finally {
+							semaphore.release();
+						}
+					}
+				 });
+			} catch (RejectedExecutionException e) {
+				// TODO Auto-generated catch block
+				semaphore.release();
+			}
+    	 }
+    	 
+     }
       
     // 测试构造的线程池  
-    public static void main(String[] args) {  
+    public static void main(String[] args) throws InterruptedException {  
         CustomThreadPoolExecutor exec = new CustomThreadPoolExecutor();  
+        
         // 1.初始化  
         exec.init();  
           
         ExecutorService pool = exec.getCustomThreadPoolExecutor();  
+        BoundedExecutor boundExecutor= new BoundedExecutor(pool , 5);
         for(int i=1; i<100; i++) {  
             System.out.println("提交第" + i + "个任务!");  
-            pool.execute(new Runnable() {  
-                @Override  
-                public void run() {  
-                    try {  
-                        Thread.sleep(3000);  
-                    } catch (InterruptedException e) {  
-                        e.printStackTrace();  
-                    }  
-                    System.out.println("running=====");  
-                }  
-            });  
+				boundExecutor.sumbitTask(new Runnable(){
+					@Override
+					public void run() {
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
         }  
           
           
