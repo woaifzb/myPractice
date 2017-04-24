@@ -15,7 +15,7 @@ public class SocketListener extends Thread {
 		try {
 			socketServer=new ServerSocket(12345);
 			while(true){
-					Socket s=socketServer.accept();
+					Socket s=socketServer.accept(); //阻塞，知道有连接进来
 					JOptionPane.showMessageDialog(null, "客户端连接到服务器");
 					ChatSocket chatSocket=new ChatSocket(s);
 					myThread=new Thread(chatSocket);
