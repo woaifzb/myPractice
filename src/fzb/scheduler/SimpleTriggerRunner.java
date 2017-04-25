@@ -28,21 +28,25 @@ import fzb.spring.BeanFactoryTest;
 public class SimpleTriggerRunner {
 	private static Logger logger = Logger.getLogger(SimpleTriggerRunner.class);
 	public static void main(String[] args) {
-		JobDetail jd=new JobDetail("myjob","myJobGroup",SimpleJob.class);
+		JobDetail jd1=new JobDetail("myjob1","myJobGroup",SimpleJob.class);
+		JobDetail jd2=new JobDetail("myjob2","myJobGroup",AnotherSimpleJob.class);
 		SimpleTrigger simpleTrigger=new SimpleTrigger("myTrigger","myTriggerDroup");
 		simpleTrigger.setStartTime(new Date());
 		simpleTrigger.setRepeatCount(5);
 		simpleTrigger.setRepeatInterval(1000);
 		
-		CronTrigger cronTrigger=new CronTrigger("myCronTrigger","myTriggerDroup");
+		CronTrigger cronTrigger1=new CronTrigger("myCronTrigger1","myTriggerDroup");
+		CronTrigger cronTrigger2=new CronTrigger("myCronTrigger2","myTriggerDroup");
 		try {
-			CronExpression cronExpress=new CronExpression("0/3 * * * * ?");
-			cronTrigger.setCronExpression(cronExpress);
+			cronTrigger1.setCronExpression(new CronExpression("0/5 * * * * ?"));
+			
+			cronTrigger2.setCronExpression(new CronExpression("0/1 * * * * ?"));
 		
 			SchedulerFactory schedulerFactory=new StdSchedulerFactory();
 			Scheduler scheduler=schedulerFactory.getScheduler();
 		//	scheduler.scheduleJob(jd, simpleTrigger);
-			scheduler.scheduleJob(jd, cronTrigger);
+			scheduler.scheduleJob(jd1, cronTrigger1);
+			scheduler.scheduleJob(jd2, cronTrigger2);
 			scheduler.start();
 		} catch (SchedulerException e) {
 			// TODO Auto-generated catch block
