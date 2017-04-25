@@ -8,7 +8,7 @@ import java.nio.channels.FileChannel;
 
 public class Snippet {
 	public static void main(String[] args) throws IOException {
-		RandomAccessFile aFile = new RandomAccessFile("/beans.xml", "rw");
+		RandomAccessFile aFile = new RandomAccessFile(System.getProperty("user.dir")+"\\read.txt", "rw");
 		FileChannel inChannel = aFile.getChannel();
 		ByteBuffer buf = ByteBuffer.allocate(48);
 		int bytesRead = inChannel.read(buf);
