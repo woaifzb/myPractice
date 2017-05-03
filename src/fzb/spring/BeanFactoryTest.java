@@ -13,6 +13,8 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -22,9 +24,6 @@ import fzb.proxy.*;
 public class BeanFactoryTest {
 	private static Logger logger = Logger.getLogger(BeanFactoryTest.class);
 	public static void main(String[] args) {
-	//	ResourcePatternResolver resolver=new PathMatchingResourcePatternResolver();
-	//	Resource resource=resolver.getResource("classpath:/beans.xml");
-	//	BeanFactory bean=new XmlBeanFactory(res);
 
 		ClassPathResource resource = new ClassPathResource("/beans.xml");  
 		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();  
@@ -33,7 +32,8 @@ public class BeanFactoryTest {
 		
 	//	print(resource);
 			
-		
+		ApplicationContext atc=new ClassPathXmlApplicationContext("/beans.xml");
+	//	Persion p=(Persion)atc.getBean("persion",Persion.class);
 		Persion p=(Persion) factory.getBean("persion",Persion.class);
 		System.out.println("Persion init");
 		
