@@ -3,11 +3,21 @@
  */
 package fzb.proxy;
 
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
 /**
  * @author fzb
  * @since  2017��3��18�� ����6:53:04
  */
-public class Persion implements IPersion{
+public class Persion implements IPersion,InitializingBean
+,DisposableBean{
 	String name;
 	String age;
 	int score;
@@ -15,6 +25,7 @@ public class Persion implements IPersion{
 	
 	
 	public void initMethod(){
+		System.out.println("initMethod");
 		this.name="default";
 		this.age="0";
 		this.score=0;
@@ -71,6 +82,20 @@ public class Persion implements IPersion{
 		System.out.println("name: "+name+" age:"+age+" score:"+score+" height:"+height);
 		return super.toString();
 	}
-	
-	
+
+
+
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out.println("afterPropertiesSet");
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		System.out.println("destroy");
+	}
+	public void destroyMethod() throws Exception {
+		System.out.println("destroyMethod");
+	}
 }

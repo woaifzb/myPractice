@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="src/lib/spring-expression-3.2.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="src/lib/jedis-2.9.0.jar"/>
 	<classpathentry kind="lib" path="src/lib/gson-2.1.jar"/>
+	<classpathentry kind="lib" path="src/lib/javatuples-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

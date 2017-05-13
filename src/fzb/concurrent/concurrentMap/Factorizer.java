@@ -43,8 +43,9 @@ public static void main(String[] args) {
 	Factorizer f=new Factorizer();
 	Random r=new Random();
 	try {
-		for(int i=0;i<100;i++){
-			int temp=r.nextInt(1000);
+		for(int i=0;i<2;i++){
+		//	int temp=r.nextInt(10);
+			int temp=15;
 			print(f.cache.compute(BigInteger.valueOf(temp)),BigInteger.valueOf(temp));
 		}
 	} catch (InterruptedException e) {

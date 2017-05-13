@@ -59,6 +59,9 @@ public class CustomThreadPoolExecutor {
         return this.pool;  
     }  
       
+    /**
+     * 自定义线程工厂 
+     */
     private class CustomThreadFactory implements ThreadFactory {  
   
         private AtomicInteger count = new AtomicInteger(0);  
@@ -80,7 +83,7 @@ public class CustomThreadPoolExecutor {
         public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {  
             // 记录异常  
             // 报警处理等  
-            System.out.println("error.............");
+            System.out.println("error.............队列已满");
         	try {
 				executor.getQueue().put(r);
 			} catch (InterruptedException e) {
@@ -108,7 +111,7 @@ public class CustomThreadPoolExecutor {
 		protected void beforeExecute(Thread t, Runnable r) {
 			// TODO Auto-generated method stub
 			super.beforeExecute(t, r);
-			System.out.println(String.format("Thread %s -->start %s ",t,r));
+			System.out.println(String.format("Thread %s -->start！！！ %s ",t,r));
 			startTime.set(System.nanoTime());
 		}
 
@@ -118,7 +121,7 @@ public class CustomThreadPoolExecutor {
 			long taskTime=System.nanoTime()-startTime.get();
 			numTasks.incrementAndGet();
 			totalTime.addAndGet(taskTime);
-			System.out.println(String.format("Thread %s -->end %s time=%dns",t,r,taskTime));
+			System.out.println(String.format("Thread %s -->end！！！ %s time=%dns",t,r,taskTime));
 			super.afterExecute(r, t);
 		}
 
@@ -173,14 +176,16 @@ public class CustomThreadPoolExecutor {
         exec.init();  
           
         ExecutorService pool = exec.getCustomThreadPoolExecutor();  
-        BoundedExecutor boundExecutor= new BoundedExecutor(pool , 5);
-        for(int i=1; i<100; i++) {  
+        //使用信号量控制提交到线程池的线程数量
+     //   BoundedExecutor boundExecutor= new BoundedExecutor(pool , 5);
+        for(int i=1; i<10; i++) {  
             System.out.println("提交第" + i + "个任务!");  
-				boundExecutor.sumbitTask(new Runnable(){
+			//	boundExecutor.sumbitTask(new Runnable(){
+            	pool.execute(new Runnable(){
 					@Override
 					public void run() {
 						try {
-							Thread.sleep(1000);
+							Thread.sleep(2000);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

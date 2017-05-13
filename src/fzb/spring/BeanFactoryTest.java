@@ -35,9 +35,10 @@ public class BeanFactoryTest {
 		ApplicationContext atc=new ClassPathXmlApplicationContext("/beans.xml");
 	//	Persion p=(Persion)atc.getBean("persion",Persion.class);
 		Persion p=(Persion) factory.getBean("persion",Persion.class);
-		System.out.println("Persion init");
-		
-		p.toString();
+	//	System.out.println("Persion init");
+		p=null;
+		System.gc();
+	//	p.toString();
 	}
 	
 	

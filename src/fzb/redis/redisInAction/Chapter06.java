@@ -1,4 +1,4 @@
-package fzb.redis;
+package fzb.redis.redisInAction;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import redis.clients.jedis.Jedis;
