@@ -46,7 +46,7 @@ public class SimpleTriggerRunner {
 			Scheduler scheduler=schedulerFactory.getScheduler();
 		//	scheduler.scheduleJob(jd, simpleTrigger);
 			scheduler.scheduleJob(jd1, cronTrigger1);
-			scheduler.scheduleJob(jd2, cronTrigger2);
+		//	scheduler.scheduleJob(jd2, cronTrigger2);
 			scheduler.start();
 		} catch (SchedulerException e) {
 			// TODO Auto-generated catch block

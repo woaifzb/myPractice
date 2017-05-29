@@ -18,5 +18,13 @@ public class SimpleJob implements Job{
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		// TODO Auto-generated method stub
 		System.out.println("I am "+arg0.getTrigger().getName()+" trigger time is:"+(new Date()));
+		try {
+			System.out.println("sleep 10s");
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("I am "+arg0.getTrigger().getName()+"run end");
 	}
 }
