@@ -64,7 +64,8 @@ public class NIOClient {
                     channel.configureBlocking(false);  
   
                     //在这里可以给服务端发送信息哦  
-                    channel.write(ByteBuffer.wrap(new String("向服务端发送了一条信息").getBytes()));  
+                    System.out.println("向服务端发送了一条信息:你好我是客户端!");
+                    channel.write(ByteBuffer.wrap(new String("你好我是客户端!").getBytes("UTF-8")));  
                     //在和服务端连接成功之后，为了可以接收到服务端的信息，需要给通道设置读的权限。  
                     channel.register(this.selector, SelectionKey.OP_READ);  
                       
@@ -84,6 +85,12 @@ public class NIOClient {
      */  
     public void read(SelectionKey key) throws IOException{  
         //和服务端的read方法一样  
+    	SocketChannel sc=(SocketChannel) key.channel();
+    	ByteBuffer buffer=ByteBuffer.allocate(1024);
+    	sc.read(buffer);
+    	byte data[]=buffer.array();
+    	System.out.println("客户收到服务器的消息：");
+    	System.out.println(new String(data));
     }  
       
       

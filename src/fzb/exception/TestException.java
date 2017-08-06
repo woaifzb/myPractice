@@ -17,7 +17,9 @@ public class TestException {
 			System.out.println(1);
 			try {
 				System.out.println(2);
-				System.out.println(1/0);
+			//	System.out.println(1/0);
+				if (true)
+					throw new Exception();
 				System.out.println(3);
 				return 9;
 			} catch (Exception e) {
