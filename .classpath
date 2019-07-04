@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="src/lib/quartz-1.8.6.jar"/>
 	<classpathentry kind="lib" path="src/lib/commons-logging.jar"/>
 	<classpathentry kind="lib" path="src/lib/slf4j-log4j12-1.6.4.jar"/>
@@ -15,5 +19,12 @@
 	<classpathentry kind="lib" path="src/lib/jedis-2.9.0.jar"/>
 	<classpathentry kind="lib" path="src/lib/gson-2.1.jar"/>
 	<classpathentry kind="lib" path="src/lib/javatuples-1.2.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="src/lib/rocketmq-client-4.3.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

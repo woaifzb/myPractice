@@ -22,17 +22,17 @@ public class NIOServer {
      * @throws IOException 
      */  
     public void initServer(int port) throws IOException {  
-        // 获得一个ServerSocket通道  
-        ServerSocketChannel serverChannel = ServerSocketChannel.open();  
-        // 设置通道为非阻塞  
-        serverChannel.configureBlocking(false);  
+        // 获得一个ServerSocket通道   用来监听新进来的TCP连接
+        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();  
+        // 设置通道为非阻塞   当设置为非阻塞试的时候  serverChannel.accept();  会直接返回 如果还没有新进来的连接,返回的将是null
+        serverSocketChannel.configureBlocking(false);  
         // 将该通道对应的ServerSocket绑定到port端口  
-        serverChannel.socket().bind(new InetSocketAddress(port));  
+        serverSocketChannel.socket().bind(new InetSocketAddress(port));  
         // 获得一个通道管理器  
         this.selector = Selector.open();  
         //将通道管理器和该通道绑定，并为该通道注册SelectionKey.OP_ACCEPT事件,注册该事件后，  
         //当该事件到达时，selector.select()会返回，如果该事件没到达selector.select()会一直阻塞。  
-        serverChannel.register(selector, SelectionKey.OP_ACCEPT);  
+        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);  
     }  
   
     /** 
@@ -44,8 +44,8 @@ public class NIOServer {
         System.out.println("服务端启动成功！");  
         // 轮询访问selector  
         while (true) {  
-            //当注册的事件到达时，方法返回；否则,该方法会一直阻塞  
-            selector.select();  
+            //当注册的事件到达时，方法返回；否则,该方法会一直阻塞   还有 selector.select(timeout) selector.selectNow()两种
+            selector.select();   
             // 获得selector中选中的项的迭代器，选中的项为注册的事件  
             Iterator ite = this.selector.selectedKeys().iterator();  
             while (ite.hasNext()) {  
